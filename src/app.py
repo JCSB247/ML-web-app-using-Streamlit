@@ -1,15 +1,16 @@
 import pickle
 import streamlit as st
 
-st.set_page_config(page_title="Diabetes Prediction")
+st.set_page_config(page_title="Predicción diabetes")
 
 # Cargar modelo
 model_path = "models/diab_tree_classifier_crit-entro_maxdepth-5_minleaf-2_minsplit10_42.sav"
 model = pickle.load(open(model_path, "rb"))
 
-class_dict = {0: "You are not diabetic", 1: "You are diabetic"}
+class_dict = {0: "No diabético", 
+              1: "Diabético"}
 
-st.title("Diabetes prediction")
+st.title("Predicción diabético")
 st.caption(f"Loaded model: {model_path}")
 st.divider()
 
@@ -28,8 +29,9 @@ st.divider()
 if st.button("Predict"):
     X = [[Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]]
     pred = int(model.predict(X)[0])
+    st.divider()
     st.subheader("Result")
     st.write(class_dict[pred])
-
+    st.divider()
  
 
